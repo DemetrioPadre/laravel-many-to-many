@@ -10,6 +10,7 @@ use App\Models\Type;
 use App\Models\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 class ProjectController extends Controller
 {
@@ -61,7 +62,10 @@ class ProjectController extends Controller
 
         $project->save();
 
-        $project->technologies()->attach($data["technologies"]);
+        if (Arr::exists('technologies', $data)) {
+            $project->technologies()->attach($data["technologies"]);
+        }
+
 
         return redirect()->route('admin.project.show', $project);
     }
@@ -106,6 +110,14 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->slug = Str::slug($project->title);
         $project->save();
+
+
+        if (Arr::exists($data, 'technologies')) {
+            $project->technologies()->sync($data["technologies"]);
+        } else {
+            $project->technologies()->detach();
+        }
+
 
         return redirect()->route('admin.project.show', $project);
     }
