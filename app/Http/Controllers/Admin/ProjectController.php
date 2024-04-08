@@ -61,7 +61,9 @@ class ProjectController extends Controller
 
         $project->save();
 
-        return redirect()->route('admin.projects.show', $project);
+        $project->technologies()->attach($data["technologies"]);
+
+        return redirect()->route('admin.project.show', $project);
     }
 
     /**
