@@ -27,36 +27,50 @@
                 @endif
 
                 @csrf
-
-
                 <div class="col-6">
-                    <label class="form-label" for="title">Titolo</label>
-                    <input class="form-control " id="title" name="title" type="text"
-                        value=" {{ old('title') ?? $project['title'] }}  ">
-                    @error('title')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="col-6">
-                    <label class="form-label" for="type_id">Categria</label>
-                    <select name="type_id" id="type_id" class="form-select">
-                        <option value="type_id">Seleziona una categoria</option>
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="form-label" for="title">Titolo</label>
+                            <input class="form-control " id="title" name="title" type="text"
+                                value=" {{ old('title') ?? $project['title'] }}  ">
+                            @error('title')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="type_id">Categria</label>
+                            <select name="type_id" id="type_id" class="form-select">
+                                <option value="type_id">Seleziona una categoria</option>
 
 
-                        @foreach ($types as $type)
-                            <option {{ $type->id == old('type_id', $project->type_id) ? 'selected' : '' }}
-                                value="{{ $type->id }}">
-                                {{ $type->label }}</option>
-                            {{-- <option {{ $type->id == $project['type']->id ? 'selected' : '' }} value="{{ $type->id }}">
+                                @foreach ($types as $type)
+                                    <option {{ $type->id == old('type_id', $project->type_id) ? 'selected' : '' }}
+                                        value="{{ $type->id }}">
+                                        {{ $type->label }}</option>
+                                    {{-- <option {{ $type->id == $project['type']->id ? 'selected' : '' }} value="{{ $type->id }}">
                                 {{ $type->label }}</option> --}}
-                        @endforeach
+                                @endforeach
 
-                    </select>
+                            </select>
 
-                    @error('type')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                            @error('type')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
+                <div class="col-6">
+                    @foreach ($technologies as $technology)
+                        <div> <input class="form-check-input" type="checkbox" name="technologies"
+                                id="technologies-{{ $technology->id }}">
+                            <label class="form-check-label"
+                                for="technologies-{{ $technology->id }}">{{ $technology->label }}</label>
+                        </div>
+                    @endforeach
+
+                </div>
+
+
                 <div class="col-12">
                     <label class="form-label" for="content">Contenuto</label>
                     <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" type="text"

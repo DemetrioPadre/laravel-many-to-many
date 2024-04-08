@@ -15,6 +15,7 @@
                         <th>ID</th>
                         <th>Titolo</th>
                         <th>Categoria</th>
+                        <th>Technologie</th>
                         <th>Slug </th>
                         <th>Estratto</th>
                         <th></th>
@@ -25,6 +26,7 @@
                             <td>{{ $project->id }}</td>
                             <td>{{ $project->title }}</td>
                             <td>{!! $project->type->getBadge() !!}</td>
+                            <td>{{ $project->getTechnologiesToText() }}</td>
                             <td>{{ $project->slug }} </td>
                             <td>{{ $project->getAbstract(50) }}</td>
                             <td>

@@ -27,4 +27,8 @@ class Project extends Model
     {
         return (strlen($this->content) > $n_chars) ? substr($this->content, 0, $n_chars) . '...' : $this->content;
     }
+    public function getTechnologiesToText()
+    {
+        return implode(', ', $this->technologies->pluck('label')->toArray());
+    }
 }

@@ -13,6 +13,7 @@
             <p>{{ $project->title }}</p>
             <p>Categoria: {!! $project->type->getBadge() !!}</p>
             <p>{{ $project->content }}</p>
+            <p>{{ $project->getTechnologiesToText() }}</p>
 
         </div>
     </section>
