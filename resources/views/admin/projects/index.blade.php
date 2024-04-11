@@ -18,7 +18,7 @@
                         <th>Technologie</th>
                         <th>Slug </th>
                         <th>Estratto</th>
-                        <th></th>
+                        <th colspan="100%"></th>
                 </thead>
                 <tbody>
                     @forelse ($projects as $project)

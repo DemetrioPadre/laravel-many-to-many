@@ -31,11 +31,13 @@
                 @csrf
                 <div class="col-1">
                     <label for="color">Colore</label>
-                    <input class="form-control" type="color" name="color" id="color">
+                    <input class="form-control" type="color" name="color" id="color"
+                        value="{{ old('title', $type->color) }}">
                 </div>
                 <div class="col-11">
                     <label for="label">Etichetta</label>
-                    <input class="form-control" type="text" name="label" id="label">
+                    <input class="form-control" type="text" name="label" id="label"
+                        value="{{ old('title', $type->label) }}">
                 </div>
 
 

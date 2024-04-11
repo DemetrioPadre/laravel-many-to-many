@@ -68,7 +68,8 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        //
+
+        return view('admin.types.form', compact('type'));
     }
 
     /**
@@ -80,7 +81,9 @@ class TypeController extends Controller
      */
     public function update(Request $request, Type $type)
     {
-        //
+        $data = $request->all();
+        $type->update($data);
+        return redirect()->route('admin.types.show', $type);
     }
 
     /**
@@ -91,6 +94,10 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        foreach ($type->projects as $project) {
+            $project->forceDelete();
+        };
+        $type->delete();
+        return redirect()->back();
     }
 }
