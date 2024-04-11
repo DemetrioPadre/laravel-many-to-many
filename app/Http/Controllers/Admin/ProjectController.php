@@ -114,10 +114,19 @@ class ProjectController extends Controller
 
         $project->fill($data);
         $project->slug = Str::slug($project->title);
-        $project->save();
 
+        //se è arrivata una nuova img
         if (Arr::exists($data, "image")) {
+            //se ce n era una prima
+            if (!empty($project->image)) {
+                //la elimino
+                Storage::delete($project->image);
+            }
+            //salva l anuova img
+            $img_path = Storage::put('uploads/projects', $data["image"]);
+            $project->image = $img_path;
         }
+        $project->save();
 
 
         if (Arr::exists($data, 'technologies')) {

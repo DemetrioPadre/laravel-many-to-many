@@ -66,7 +66,18 @@
                     <div class="col-12">
                         <div class="mb-3">
                             <label for="image" class="form-label">Immagine Progetto</label>
-                            <input type="file" name="image" id="image">
+                            <input @class(['form-control', 'is-invalid' => $errors->has('image')]) type="file" name="image" id="image">
+                            @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+
+                            @if (!empty('$project->image'))
+                                <div class="preview-image-container">
+                                    <div class="delete-image-button">X</div>
+
+                                    <img src="{{ asset('storage/' . $project->image) }}" alt="">
+                                </div>
+                            @endif
                         </div>
                     </div>
 
@@ -102,6 +113,12 @@
                 </div>
 
             </form>
+            @if (!empty($project->id))
+                <form action="{{ route('admin.projects.destroy-img', $project) }}" class="d-none" id="delete-image-form">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            @endif
         </div>
     </section>
 
@@ -112,4 +129,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+@endsection
+
+@section('js')
+    <script>
+        const deleteImageButton = document.querySelector('.delete-image-button');
+        const deleteImageButton = document.querySelector('#delete-image-button');
+
+        deleteImageButton.addEventListener('click', () => {
+            deleteImageForm.submit();
+
+        })
+    </script>
+
+
+
+
 @endsection

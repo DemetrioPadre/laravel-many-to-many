@@ -9,3 +9,23 @@
         flex-grow: 1;
     }
 }
+
+.preview-image-container {
+    position: relative;
+
+    .delete-image-button {
+        position: absolute;
+        top: 20px;
+        right: 10px;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-color: red;
+        color: white;
+        font-size: 0.8rem;
+    }
+}
