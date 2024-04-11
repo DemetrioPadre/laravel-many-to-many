@@ -21,7 +21,7 @@
             <h1 class="mb-4">{{ empty($project->id) ? 'Creazione Nuovo Progetto' : 'Modifica Progetto' }}</h1>
 
             <form action="{{ empty($project->id) ? route('admin.project.store') : route('admin.project.update', $project) }}"
-                class="row g-3" method="POST">
+                class="row g-3" method="POST" enctype="multipart/form-data">
                 @if (!empty($project->id))
                     @method('PATCH')
                 @endif
@@ -38,26 +38,41 @@
                             @enderror
                         </div>
                         <div class="col-12">
-                            <label class="form-label" for="type_id">Categria</label>
-                            <select name="type_id" id="type_id" class="form-select">
-                                <option value="type_id">Seleziona una categoria</option>
+                            <div class="mb-3">
+                                <label class="form-label" for="type_id">Categria</label>
+                                <select name="type_id" id="type_id" class="form-select">
+                                    <option value="type_id">Seleziona una categoria</option>
 
 
-                                @foreach ($types as $type)
-                                    <option {{ $type->id == old('type_id', $project->type_id) ? 'selected' : '' }}
-                                        value="{{ $type->id }}">
-                                        {{ $type->label }}</option>
-                                    {{-- <option {{ $type->id == $project['type']->id ? 'selected' : '' }} value="{{ $type->id }}">
+                                    @foreach ($types as $type)
+                                        <option {{ $type->id == old('type_id', $project->type_id) ? 'selected' : '' }}
+                                            value="{{ $type->id }}">
+                                            {{ $type->label }}</option>
+                                        {{-- <option {{ $type->id == $project['type']->id ? 'selected' : '' }} value="{{ $type->id }}">
                                 {{ $type->label }}</option> --}}
-                                @endforeach
+                                    @endforeach
 
-                            </select>
+                                </select>
 
-                            @error('type')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                                @error('type')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                         </div>
                     </div>
+
+
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Immagine Progetto</label>
+                            <input type="file" name="image" id="image">
+                        </div>
+                    </div>
+
+
+
+
                 </div>
                 <div class="col-6">
                     @foreach ($technologies as $technology)

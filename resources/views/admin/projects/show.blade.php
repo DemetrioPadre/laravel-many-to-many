@@ -15,6 +15,10 @@
             <p>{{ $project->content }}</p>
             <p>{{ $project->getTechnologiesToText() }}</p>
 
+            @if (!empty($project->image))
+                <img src="{{ asset('storage/' . $project->image) }}" alt="">
+            @endif
+
         </div>
     </section>
 

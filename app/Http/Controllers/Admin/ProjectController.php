@@ -11,6 +11,7 @@ use App\Models\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -46,19 +47,23 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        // to do  validazione   
+        // valido la richiesta  
 
         $request->validated();
 
-
-
-
+        //recupero i dati della richiesta
         $data = $request->all();
 
-
+        //istanzio un nuovo progetto
         $project = new Project;
+
+        //fillo i post con i dati del form
         $project->fill($data);
+
         $project->slug = Str::slug($project->title);
+
+        $img_path = Storage::put('uploads/projects', $data["image"]);
+        $project->image = $img_path;
 
         $project->save();
 
@@ -110,6 +115,9 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->slug = Str::slug($project->title);
         $project->save();
+
+        if (Arr::exists($data, "image")) {
+        }
 
 
         if (Arr::exists($data, 'technologies')) {
