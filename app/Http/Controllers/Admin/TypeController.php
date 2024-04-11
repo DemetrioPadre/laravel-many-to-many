@@ -55,7 +55,7 @@ class TypeController extends Controller
      */
     public function show(Type $type)
     {
-        //
+        return view('admin.types.show', $type);
     }
 
     /**
