@@ -113,7 +113,7 @@
                 </div>
 
             </form>
-            @if (!empty($project->id))
+            @if (!empty($project->image) && !empty($project->id))
                 <form action="{{ route('admin.projects.destroy-img', $project) }}" class="d-none" id="delete-image-form">
                     @csrf
                     @method('DELETE')
@@ -132,15 +132,17 @@
 @endsection
 
 @section('js')
-    <script>
-        const deleteImageButton = document.querySelector('.delete-image-button');
-        const deleteImageButton = document.querySelector('#delete-image-button');
+    @if (!empty($project->image) && !empty($project->id))
+        <script>
+            const deleteImageButton = document.querySelector('.delete-image-button');
+            const deleteImageForm = document.querySelector('#delete-image-form');
 
-        deleteImageButton.addEventListener('click', () => {
-            deleteImageForm.submit();
+            deleteImageButton.addEventListener('click', () => {
+                deleteImageForm.submit();
 
-        })
-    </script>
+            })
+        </script>
+    @endif
 
 
 
